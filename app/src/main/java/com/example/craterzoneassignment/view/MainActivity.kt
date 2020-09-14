@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         if (currentPage > previousPage) {
             galleryAdapter.addAll(listPhoto)
         } else {
-            galleryAdapter.setDataOne(listPhoto)
+            galleryAdapter.setData(listPhoto)
         }
 
         isLoad = false
@@ -100,7 +100,6 @@ class MainActivity : AppCompatActivity() {
         recycler_view.addOnScrollListener(object : PaginationListener(layoutManager) {
 
             override fun loadMoreItems() {
-                Log.e("crater", "more page"+ currentPage)
                 isLoad = true
                 currentPage++
                 searchImages(mQuery, currentPage)

@@ -50,12 +50,6 @@ class GalleryAdapter (var iImageLoadCallback: IImageLoadCallback): RecyclerView.
         diffResult.dispatchUpdatesTo(this)
     }
 
-    fun setDataOne(listPhoto: List<Photo>) {
-        imagesList.clear()
-        imagesList.addAll(listPhoto)
-        notifyDataSetChanged()
-    }
-
     fun addAll(listPhoto: List<Photo>) {
         for (result in listPhoto) {
             add(result)
@@ -65,14 +59,6 @@ class GalleryAdapter (var iImageLoadCallback: IImageLoadCallback): RecyclerView.
     private fun add(photo: Photo) {
         imagesList.add(photo)
         notifyItemInserted(imagesList.size- 1)
-    }
-
-    fun getImageList() : ArrayList<Photo> {
-        return imagesList
-    }
-
-    private fun updateImage(imageView: ImageView) {
-        ImageHelper.updateImageCorners(imageView, 6)
     }
 
     override fun getItemCount(): Int {
