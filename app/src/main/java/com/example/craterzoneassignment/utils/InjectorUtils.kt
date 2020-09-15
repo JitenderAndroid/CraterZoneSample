@@ -17,7 +17,10 @@
 package com.example.craterzoneassignment.utils
 
 import android.content.Context
+import com.example.craterzoneassignment.data.FetchImageRepository
 import com.example.craterzoneassignment.data.ImageRepository
+import com.example.craterzoneassignment.db.ImageDb
+import com.example.craterzoneassignment.service.RetrofitClient
 import com.example.craterzoneassignment.viewmodel.ImagesViewModelFactory
 
 /**
@@ -25,8 +28,12 @@ import com.example.craterzoneassignment.viewmodel.ImagesViewModelFactory
  */
 object InjectorUtils {
 
-    private fun getImageRepository(context: Context): ImageRepository {
-        return ImageRepository.getInstance()
+    private fun getImageRepository(context: Context): FetchImageRepository {
+        return FetchImageRepository(ImageDb.getDatabase(context).
+            imageDao(),
+            RetrofitClient.apiService,
+            ImageDb.getDatabase(context),
+            AppExecutors.getInstance())
     }
 
     fun provideImageViewModelFactory(context: Context): ImagesViewModelFactory {

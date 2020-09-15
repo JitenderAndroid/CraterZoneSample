@@ -11,10 +11,6 @@ class ImageRepository {
     public suspend fun searchImages(query: String, page: Int): ImageResponse? {
         val response = RetrofitClient.apiService.getImages(text = query, page = page)
 
-        if (response.isSuccessful) {
-            return response.body()
-        }
-
         return null
     }
 

@@ -2,10 +2,10 @@ package com.example.craterzoneassignment.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.craterzoneassignment.data.ImageRepository
+import com.example.craterzoneassignment.data.FetchImageRepository
 
 class ImagesViewModelFactory (
-    private val imageRepository: ImageRepository
+    private val imageRepository: FetchImageRepository
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
