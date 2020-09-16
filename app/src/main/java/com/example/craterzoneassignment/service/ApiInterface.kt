@@ -5,7 +5,6 @@ import com.example.craterzoneassignment.data.ApiResponse
 import com.example.craterzoneassignment.models.ImageResponse
 import com.example.craterzoneassignment.service.ApiEndpoint.API_KEY
 import com.example.craterzoneassignment.service.ApiEndpoint.METHOD
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 

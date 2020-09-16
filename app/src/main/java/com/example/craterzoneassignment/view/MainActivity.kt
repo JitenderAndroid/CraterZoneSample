@@ -45,10 +45,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeImages() {
         viewModel.results.observe(this, Observer<Resource<List<Photo>>?> { t ->
-                t?.data?.let {
-                    setData(it, 1)
-                }
-            })
+            Log.e("crater", "observe")
+            t?.data?.let {
+                setData(it, 1)
+            }
+        })
     }
 
     private fun initRecycler() {
@@ -158,6 +159,6 @@ class MainActivity : AppCompatActivity() {
         progress_circular.visibility = View.VISIBLE
         hideKeyboard(this)
 
-        viewModel.searchImages(query, page)
+        viewModel.setQuery(query)
     }
 }

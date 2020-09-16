@@ -13,15 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.example.craterzoneassignment.db
 
 import androidx.room.Entity
 import androidx.room.TypeConverters
-import com.android.example.github.db.GithubTypeConverters
 import com.example.craterzoneassignment.models.Photo
+import com.example.craterzoneassignment.utils.ListTypeConverter
 
 @Entity(primaryKeys = ["query"])
-@TypeConverters(GithubTypeConverters::class)
+@TypeConverters(ListTypeConverter::class)
 data class RepoSearchResult(
     val query: String,
-    val image: List<Photo>
+    val totalPage: Int,
+    val photos: List<Photo>
 )

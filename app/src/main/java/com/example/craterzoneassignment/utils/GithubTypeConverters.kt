@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package com.android.example.github.db
+package com.example.craterzoneassignment.utils
 
 import androidx.room.TypeConverter
-import timber.log.Timber
 
 object GithubTypeConverters {
     @TypeConverter
@@ -28,7 +27,6 @@ object GithubTypeConverters {
                 try {
                     it.toInt()
                 } catch (ex: NumberFormatException) {
-                    Timber.e(ex, "Cannot convert $it to number")
                     null
                 }
             }

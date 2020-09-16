@@ -1,6 +1,5 @@
 package com.example.craterzoneassignment.db
 
-import RepoSearchResult
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
