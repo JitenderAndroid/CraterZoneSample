@@ -15,13 +15,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.example.craterzoneassignment.R
 import com.example.craterzoneassignment.adapter.GalleryAdapter
+import com.example.craterzoneassignment.data.Resource
 import com.example.craterzoneassignment.models.Photo
 import com.example.craterzoneassignment.utils.*
 import com.example.craterzoneassignment.viewmodel.ImagesViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,11 +44,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeImages() {
-        viewModel.getFetchedImages().observe(this, Observer {
-            it?.let {
-                CoroutineScope(Dispatchers.Main).launch {
-                    setData(it.photos.photo, it.photos.page)
-                }
+        viewModel.results.observe(this, Observer<Resource<List<Photo>>?> { t ->
+            Log.e("crater", "observe")
+            t?.data?.let {
+                setData(it, 1)
             }
         })
     }
@@ -72,6 +69,7 @@ class MainActivity : AppCompatActivity() {
         recycler_view.setPadding(spacing, spacing, spacing, spacing)
         recycler_view.clipToPadding = false
         recycler_view.clipChildren = false
+
         recycler_view.addItemDecoration(object : ItemDecoration() {
             override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
                 outRect.set(spacing, spacing, spacing, spacing)
@@ -161,6 +159,6 @@ class MainActivity : AppCompatActivity() {
         progress_circular.visibility = View.VISIBLE
         hideKeyboard(this)
 
-        viewModel.searchImages(query, page)
+        viewModel.setQuery(query)
     }
 }

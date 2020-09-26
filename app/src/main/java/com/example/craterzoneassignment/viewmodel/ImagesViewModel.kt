@@ -1,29 +1,35 @@
 package com.example.craterzoneassignment.viewmodel
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.craterzoneassignment.data.ImageRepository
-import com.example.craterzoneassignment.models.ImageResponse
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import androidx.lifecycle.switchMap
+import com.example.craterzoneassignment.data.FetchImageRepository
+import com.example.craterzoneassignment.data.Resource
+import com.example.craterzoneassignment.models.Photo
+import java.util.*
 
-class ImagesViewModel(
-    private val imageRepository: ImageRepository
-) : ViewModel() {
+class ImagesViewModel(private val imageRepository: FetchImageRepository) : ViewModel() {
 
-    private var imageMutableLiveData = MutableLiveData<ImageResponse>()
+    private val _query = MutableLiveData<String>()
 
-    fun searchImages(query: String, page: Int) {
-        CoroutineScope(Dispatchers.IO).launch {
-            var res = ImageRepository.getInstance().searchImages(query, page)
+    val query : LiveData<String> = _query
 
-            imageMutableLiveData.postValue(res)
+    val results: LiveData<Resource<List<Photo>>> = _query.switchMap { search ->
+        if (search.isBlank()) {
+            AbsentLiveData.create()
+        } else {
+            imageRepository.searchImages(_query.value!!, 1)
         }
     }
 
-    fun getFetchedImages() : MutableLiveData<ImageResponse>{
-        return imageMutableLiveData
+    fun setQuery(originalInput: String) {
+        val input = originalInput.toLowerCase(Locale.getDefault()).trim()
+        if (input == _query.value) {
+            return
+        }
+        _query.value = input
     }
+
 }

@@ -1,6 +1,7 @@
 package com.example.craterzoneassignment.service
 
 import android.content.Context
+import com.example.craterzoneassignment.utils.LiveDataCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -27,6 +28,7 @@ object RetrofitClient {
             .baseUrl(BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(LiveDataCallAdapterFactory())
         builder.build()
     }
 
